@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.easyfood.community.mappers.IMemberMapper">
+    <insert id="insertUser"
+            parameterType="com.easyfood.community.entities.member.UserEntity">
+        INSERT INTO `easyfood_member`.`users` (`email`, `password`, `name`, `created_at`, `email_auth_flag`,
+                                               `contact`, `policy_terms_at`, `policy_privacy_at`, `policy_marketing_at`)
+        VALUES (#{email}, #{password}, #{name}, #{createdAt}, #{isEmailAuth}, #{contact}, #{policyTermsAt},
+                #{policyPrivacyAt}, #{policyMarketingAt})
+    </insert>
+
+<!--    <select id="selectUserCountByEmail" resultType="_int">-->
+<!--        SELECT COUNT(0)-->
+<!--        FROM `easyfood_member`.`users`-->
+<!--        WHERE `email` = #{email}-->
+<!--    </select>-->
+
+    <select id="selectUserByEmailPassword"
+            parameterType="com.easyfood.community.entities.member.UserEntity"
+            resultType="com.easyfood.community.entities.member.UserEntity">
+        SELECT `email`               AS `email`,
+               `password`            AS `password`,
+               `name`                AS `name`,
+               `contact`             AS `contact`,
+               `policy_terms_at`     AS `policyTermsAt`,
+               `policy_privacy_at`   AS `policyPrivacyAt`,
+               `policy_marketing_at` AS `policyMarketingAt`,
+               `created_at`          AS `createdAt`,
+               `email_auth_flag`     AS `isEmailAuth`
+        FROM `easyfood_member`.`users`
+        WHERE `email` = #{email}
+          AND `password` = #{password} LIMIT 1
+    </select>
+
+    <select id="selectUserByEmail"
+            parameterType="com.easyfood.community.entities.member.UserEntity"
+            resultType="com.easyfood.community.entities.member.UserEntity">
+        SELECT `email`               AS `email`,
+               `password`            AS `password`,
+               `name`                AS `name`,
+               `contact`             AS `contact`,
+               `policy_terms_at`     AS `policyTermsAt`,
+               `policy_privacy_at`   AS `policyPrivacyAt`,
+               `policy_marketing_at` AS `policyMarketingAt`,
+               `created_at`          AS `createdAt`,
+               `email_auth_flag`     AS `isEmailAuth`
+        FROM `easyfood_member`.`users`
+        WHERE `email` = #{email} LIMIT 1
+    </select>
+
+</mapper>

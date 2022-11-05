@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>이지푸드 회원가입</title>
+    <th:block th:insert="~{fragments/head.html :: content}"></th:block>
+    <link rel="stylesheet" th:href="@{/member/resources/stylesheets/userEmail.css}">
+    <script defer th:src="@{/member/resources/scripts/userEmail.js}"></script>
+</head>
+<body class="layout">
+<th:block th:replace="~{fragments/header.html :: content}"></th:block>
+<main class="main">
+    <form class="email-form" id="emailForm" method="get" th:action="@{/member/userRegister}">
+        <h2>이메일 확인</h2>
+        <label class="object-label">
+            <div>이메일 주소</div>
+            <input autofocus class="object-input" name="email" type="email" placeholder="이메일 주소를 입력해주세요." maxlength="50">
+        </label>
+        <span class="warning visible" id="emailWarning"></span>
+        <input class="object-button" name="emailButton" type="submit" value="확인하기">
+    </form>
+</main>
+<th:block th:replace="~{fragments/footer.html :: content}"></th:block>
+</body>
+</html>

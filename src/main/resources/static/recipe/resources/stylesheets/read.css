@@ -1,0 +1,248 @@
+@charset "UTF-8";
+
+body > .main {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 7rem;
+}
+
+body > .main > .form > .content-container {
+    width: 50rem;
+}
+
+body > .main > .form > .content-container > .button-container {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 3rem 0;
+}
+
+body > .main > .form > .content-container > .button-container > .object-button {
+    margin: 2.5rem 0;
+    width: 5rem;
+}
+
+.modifyButton {
+    background-color: rgb(var(--concept-color-orange));
+    border-radius: 0.25rem;
+    color: rgb(255, 255, 255);
+    font: inherit;
+    border: none;
+    cursor: pointer;
+    margin-right: 0.5rem;
+    white-space: nowrap;
+    padding: 0.2rem 0.3rem;
+    display: none;
+    width: 1.75rem;
+}
+
+.replyModifyButton,
+.commentModifyButton {
+    background-color: rgb(var(--concept-color-orange));
+    border-radius: 0.25rem;
+    color: rgb(255, 255, 255);
+    font: inherit;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    padding: 0.2rem 0.3rem;
+    display: none;
+    margin-right: 0.5rem;
+    width: 1.75rem;
+}
+
+.replyModifyButton.visible,
+.commentModifyButton.visible,
+.modifyButton.visible {
+    display: block;
+}
+
+.replyModifyButton:hover,
+.commentModifyButton:hover,
+.modifyButton:hover {
+    background-color: rgb(var(--concept-color-orange-dim));
+}
+
+.deleteButton {
+    background-color: #c7c7c7;
+    border-radius: 0.25rem;
+    color: rgb(255, 255, 255);
+    font: inherit;
+    border: none;
+    cursor: pointer;
+    margin-right: 0.5rem;
+    white-space: nowrap;
+    padding: 0.2rem 0.3rem;
+    display: none;
+    width: 1.75rem;
+}
+
+.replyDeleteButton,
+.commentDeleteButton {
+    background-color: #c7c7c7;
+    border-radius: 0.25rem;
+    color: rgb(255, 255, 255);
+    font: inherit;
+    border: none;
+    cursor: pointer;
+    padding: 0.2rem 0.3rem;
+    white-space: nowrap;
+    display: none;
+    width: 1.75rem;
+}
+
+.replyDeleteButton.visible,
+.commentDeleteButton.visible,
+.deleteButton.visible {
+    display: block;
+}
+
+.replyDeleteButton:hover,
+.commentDeleteButton:hover,
+.deleteButton:hover {
+    background-color: #bbbbbb;
+}
+
+body > .main > .form > .content-container > .content > .cover-image {
+    top: 0;
+    left: 0;
+    width: 50rem;
+    height: 20rem;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+body > .main > .form > .content-container > .content > .name-container {
+    width: 50rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: stretch;
+}
+
+body > .main > .form > .content-container > .content > .name-container > .name {
+    white-space: nowrap;
+}
+
+/*.icon {*/
+/*    font-size: 1.5rem;*/
+/*}*/
+
+/*.icon.visible {*/
+/*    color: red;*/
+/*}*/
+
+body > .main > .form > .content-container > .content > .name-container > .createdAt {
+    width: 50rem;
+    color: #bbbbbb;
+    margin-left: 0.5rem;
+    white-space: nowrap;
+}
+
+.line {
+    width: 50rem;
+    border: 0;
+    border-top: 0.01rem solid #bbbbbb;
+}
+
+.comment-write-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 50rem;
+}
+
+._comment-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 50rem;
+}
+
+._comment-container > .commentsContainer {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 50rem;
+}
+
+._comment-container > .commentsContainer.visible {
+    display: flex;
+}
+
+.comment-modify-container {
+    display: none;
+}
+
+.comment-modify-container.visible {
+    display: block;
+}
+
+._comment-container > .commentsContainer > .buttonContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 50rem;
+    margin-top: 0.25rem;
+}
+
+._comment-container > .commentsContainer > .commentCreatedAt {
+    color: #bbbbbb;
+}
+
+._comment-container > .commentsContainer > * {
+    margin-bottom: 0.25rem;
+    white-space: nowrap;
+}
+
+.comment-write-container > .object-button {
+    white-space: nowrap;
+}
+
+.comment-write-container > .object-input {
+    width: 100%;
+    margin-right: 0.5rem;
+}
+
+.button-container {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.writeName {
+    margin-right: 0.5rem;
+    white-space: nowrap;
+}
+
+.icon {
+    font-size: 1.5rem;
+    margin: 1.5rem 1rem 1.5rem 1.5rem;
+}
+
+.login-container {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 1.5rem;
+}
+
+.login-container > .login:hover {
+    color: rgb(var(--concept-color-orange-dim));
+}
+
+
+
+
+
+
+

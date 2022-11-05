@@ -1,0 +1,93 @@
+@charset "UTF-8";
+
+body > .main > .form {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 7rem;
+}
+
+body > .main > .form > .recipe-container {
+    width: 50rem;
+}
+
+body > .main > .form > .recipe-container > .object-label {
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-bottom: 1rem;
+}
+
+body > .main > .form > .recipe-container > .button-container > .cancel-button {
+    background-color: lightgray;
+    border-radius: 0.25rem;
+    color: rgb(255, 255, 255);
+    padding: 1rem 1rem;
+    font: inherit;
+    border: none;
+    cursor: pointer;
+    width: 15rem;
+    margin-right: 1rem;
+    margin-left: 9.5rem;
+}
+
+body > .main > .form > .recipe-container > .button-container > .cancel-button:hover {
+    background-color: #c7c7c7;
+}
+
+body > .main > .form > .recipe-container > .button-container > .object-button {
+    width: 15rem;
+}
+
+body > .main > .form > .recipe-container > .warning {
+    color: rgb(231, 76, 60);
+    display: none;
+}
+
+body > .main > .form > .recipe-container > .warning.visible {
+    display: block;
+}
+
+body > .main > .form > .recipe-container > .cover-image-container {
+    height: 20rem;
+    border: 0.0625rem solid rgb(230, 230, 230);
+    border-radius: 0.5rem;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+body > .main > .form > .recipe-container > .cover-image-container > .no-cover-image {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: default;
+    display: none;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    user-select: none;
+    z-index: 1;
+}
+
+body > .main > .form > .recipe-container > .cover-image-container > .no-cover-image.visible {
+    display: flex;
+}
+
+body > .main > .form > .recipe-container > .cover-image-container > .cover-image-preview {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+
+
+
+
+

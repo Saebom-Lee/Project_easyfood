@@ -1,0 +1,137 @@
+@charset "UTF-8";
+
+body > .main {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 7rem;
+}
+
+body > .main > .write > .object-button {
+    margin-top: 1.5rem;
+    width: 10rem;
+}
+
+.recipe-container {
+    display: grid;
+    gap: 3rem;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+body > .main > .recipe-container > .recipe > .cover-image {
+    width: 15rem;
+    aspect-ratio: 1 / 1;
+    border-radius: 0.5rem;
+    object-fit: cover;
+    margin-bottom: 0.5rem;
+    transition: 0.2s linear;
+}
+
+body > .main > .recipe-container > .recipe > .cover-image:hover {
+    transform: scale(1.02);
+}
+
+body > .main > .recipe-container > .recipe > .title {
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+    width: 15rem;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body > .main > .recipe-container > .recipe > .content {
+    width: 15rem;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body > .main > .recipe-container > .recipe > .font > .icon {
+    font-size: 1.25rem;
+    margin-right: 0.5rem;
+}
+
+body > .main > .recipe-container > .recipe > .createdAt {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
+}
+
+.page-container {
+    margin-top: 2rem;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.page-container > .page {
+    background-color: white;
+    color: #bbbbbb;
+    padding: 0.5rem 0.7rem;
+    text-decoration: none;
+    user-select: none;
+}
+
+.page-container > .page:hover {
+    text-decoration: underline;
+}
+
+.page-container > .page.selected {
+    color: rgb(var(--concept-color-orange));
+    pointer-events: none;
+}
+
+.form {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-bottom: 3rem;
+}
+
+._header > .content-container > .search-form > .input-container {
+    position: relative;
+}
+
+.form > .input-container > .object-input {
+    width: 35rem;
+    margin-right: 0.25rem;
+}
+
+.moreButton {
+    margin-top: 3rem;
+    display: none;
+    background-color: white;
+    border-radius: 0.25rem;
+    color: black;
+    padding: 0.75rem 0.75rem;
+    font: inherit;
+    border: 0.12rem solid rgb(210, 210, 210);
+    cursor: pointer;
+}
+
+.moreButton:hover {
+    border: 0.12rem solid rgb(var(--concept-color-orange));
+}
+
+.moreButton.visible {
+    display: block;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

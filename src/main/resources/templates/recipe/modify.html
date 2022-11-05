@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>요리 연구소</title>
+    <th:block th:insert="~{fragments/head.html :: content}"></th:block>
+    <link rel="stylesheet" th:href="@{/recipe/resources/stylesheets/modify.css}">
+    <script defer th:src="@{/resources/libraries/ckeditor/ckeditor.js}"></script>
+    <script defer th:src="@{/recipe/resources/scripts/modify.js}"></script>
+</head>
+<body class="layout">
+<th:block th:replace="~{fragments/header.html :: content}"></th:block>
+<main class="main">
+    <form class="form" id="form" enctype="multipart/form-data">
+        <div class="recipe-container">
+            <h2 class="cook">맛있는 요리 레시피</h2>
+            <input accept="image/*" hidden name="coverImage" type="file">
+            <div class="cover-image-container">
+                <div class="no-cover-image" id="noCoverImage">완성된 요리를 올려주세요.</div>
+                <img class="cover-image-preview" id="coverImagePreview">
+            </div>
+            <label class="object-label">
+                <span>제목</span>
+                <input class="object-input" maxlength="100" name="title" placeholder="제목을 입력해주세요." type="text">
+            </label>
+            <label class="object-label">
+                <span>내용</span>
+                <textarea class="object-input content" name="content" maxlength="1000"
+                          placeholder="내용을 입력해주세요."></textarea>
+            </label>
+            <span class="warning visible" id="warning"></span>
+            <div class="button-container">
+                <input class="cancel-button back" name="back" type="button" value="취소">
+                <input class="object-button" type="submit" value="수정하기">
+            </div>
+        </div>
+    </form>
+</main>
+<th:block th:replace="~{fragments/footer.html :: content}"></th:block>
+</body>
+</html>

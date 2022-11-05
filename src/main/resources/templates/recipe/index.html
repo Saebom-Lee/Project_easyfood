@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>요리 연구소</title>
+    <th:block th:insert="~{fragments/head.html :: content}"></th:block>
+    <link rel="stylesheet" th:href="@{/recipe/resources/stylesheets/index.css}">
+    <script defer th:src="@{/recipe/resources/scripts/index.js}"></script>
+</head>
+<body class="layout">
+<th:block th:replace="~{fragments/header.html :: content}"></th:block>
+<main class="main">
+    <form class="form" method="get" id="form">
+        <label class="input-container">
+            <input class="object-input" maxlength="100" name="keyword" type="text" placeholder="만들고 싶은 요리를 입력해주세요.">
+            <button class="object-button" id="searchButton" type="submit">검색</button>
+        </label>
+    </form>
+    <div class="recipe-container" id="recipeContainer">
+        <!--            <a class="recipe" href="#">-->
+        <!--                <img alt="" class="cover-image"-->
+        <!--                     src="https://static.wtable.co.kr/image/production/service/recipe/1802/9c556903-01f9-4850-bcf8-1f9c62a0d680.jpg?size=1050x590">-->
+        <!--                <span class="title">맛있는 파스타</span>-->
+        <!--                <span class="content">맛있는 파스타맛있는 파스타맛있는 파스타맛있는 파스타맛있는 파스타맛있는 파스타</span>-->
+        <!--            </a>-->
+    </div>
+        <div class="moreButton" id="more">더 불러오기</div>
+        <a class="write" th:href="@{/recipe/write}">
+            <input class="object-button" name="writeButton" type="submit" value="작성하기">
+        </a>
+</main>
+<th:block th:replace="~{fragments/footer.html :: content}"></th:block>
+</body>
+</html>

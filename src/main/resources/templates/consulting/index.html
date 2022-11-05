@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>요리 상담소</title>
+    <th:block th:insert="~{fragments/head.html :: content}"></th:block>
+    <link rel="stylesheet" th:href="@{/consulting/resources/stylesheets/index.css}">
+    <script defer th:src="@{/consulting/resources/scripts/index.js}"></script>
+</head>
+<body class="layout">
+<th:block th:replace="~{fragments/header.html :: content}"></th:block>
+<main class="main">
+   요리 상담소
+</main>
+<th:block th:replace="~{fragments/footer.html :: content}"></th:block>
+</body>
+</html>

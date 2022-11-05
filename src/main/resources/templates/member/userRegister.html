@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>이지푸드 회원가입</title>
+    <th:block th:insert="~{fragments/head.html :: content}"></th:block>
+    <link rel="stylesheet" th:href="@{/member/resources/stylesheets/userRegister.css}">
+    <script defer th:src="@{/member/resources/scripts/userRegister.js}"></script>
+</head>
+<body class="layout" th:with="email=${#request.getParameter('email')}">
+<th:block th:replace="~{fragments/header.html :: content}"></th:block>
+<main class="main">
+    <form class="register-form" id="registerForm">
+        <h2>회원가입</h2>
+        <label class="object-label">
+            <div>이메일 주소</div>
+            <input autofocus class="object-input" name="email" type="email" placeholder="이메일 주소를 입력해주세요."
+                   maxlength="50" th:value="${email}">
+        </label>
+        <label class="object-label">
+            <div>비밀번호</div>
+            <input class="object-input" name="password" type="password" placeholder="비밀번호를 입력해주세요." maxlength="50">
+        </label>
+        <label class="object-label">
+            <div>비밀번호 확인</div>
+            <input class="object-input" name="passwordCheck" type="password" placeholder="비밀번호를 한 번 더 입력해주세요."
+                   maxlength="50">
+        </label>
+        <label class="object-label">
+            <div>이름</div>
+            <input class="object-input" name="name" type="name" placeholder="이름을 입력해주세요." maxlength="5">
+        </label>
+        <label class="object-label">
+            <div>연락처</div>
+            <input class="object-input" name="contact" type="contact" placeholder="연락처를 입력해주세요." maxlength="12">
+        </label>
+        <span class="warning visible" id="registerWarning"></span>
+        <h2>약관동의</h2>
+        <div class="policy-container">
+            <label class="object-check-container">
+                <input hidden class="object-check-input" name="policyTerms" type="checkbox">
+                <span class="object-check">
+                    <i class="object-check-icon fa-solid fa-check"></i>
+                </span>
+                <span class="text">(필수) 서비스 <a class="link" target="_blank" th:href="@{/terms/}">이용약관</a> 동의</span>
+            </label>
+            <label class="object-check-container">
+                <input hidden class="object-check-input" name="policyPrivacy" type="checkbox">
+                <span class="object-check">
+                    <i class="object-check-icon fa-solid fa-check"></i>
+                </span>
+                <span class="text">(필수) <a class="link" target="_blank" th:href="@{/privacy/}">개인정보처리방침</a> 동의</span>
+            </label>
+            <label class="object-check-container">
+                <input hidden class="object-check-input" name="policyMarketing" type="checkbox">
+                <span class="object-check">
+                    <i class="object-check-icon fa-solid fa-check"></i>
+                </span>
+                <span class="text">(선택) 마케팅 정보 활용 동의</span>
+            </label>
+            <span class="text">광고성메세지 수신에 동의하지 않더라도, 원활한 서비스 이용과 관련된 메시지는 발송됩니다.</span>
+        </div>
+        <input class="object-button" name="registerButton" type="submit" value="회원가입">
+    </form>
+</main>
+<th:block th:replace="~{fragments/footer.html :: content}"></th:block>
+</body>
+</html>

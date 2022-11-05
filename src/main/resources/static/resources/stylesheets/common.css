@@ -1,0 +1,171 @@
+@charset "UTF-8";
+
+:root {
+    --concept-color-orange: 255, 163, 0;
+    --concept-color-orange-dim: 255, 144, 0;
+}
+
+body {
+    margin: 0;
+}
+
+html {
+    font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+
+a:link, a:visited {
+    color: inherit;
+    text-decoration: none;
+}
+
+ol, ul {
+    list-style-type: none;
+}
+
+.layout {
+    width: 100vw;
+    min-height: 100vh;
+    overflow: hidden auto;
+    position: absolute;
+}
+
+.header {
+    top: 0;
+    width: 100%;
+    height: 6rem;
+    align-items: stretch;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 0 0.0625rem 0.0625rem rgba(0, 0, 0, 10%);
+    box-sizing: border-box;
+    flex-direction: row;
+    justify-content: center;
+    position: sticky;
+    padding: 0 7rem;
+    z-index: 8;
+}
+
+.header > .content-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    position: relative;
+}
+
+.header > .content-container > .logo-container > .logo {
+    top: 50%;
+    font-size: 1.25rem;
+    position: absolute;
+    transform: translateY(-50%);
+    height: 6rem;
+    width: 10rem;
+}
+
+.header > .content-container > .menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex: 1;
+    margin-left: 7rem;
+}
+
+.header > .content-container > .menu > .item:not(:last-child) {
+    margin-right: 1rem;
+}
+
+.header > .content-container > .menu > .item > .link {
+    font-size: 1.2rem;
+    font-weight: 500;
+    display: inline-block;
+    padding: 1.25rem 0.2rem;
+}
+
+.header > .content-container > .search > .icon {
+    top: 50%;
+    font-size: 1.25rem;
+    position: absolute;
+    transform: translateY(-50%);
+}
+
+.header > .content-container > .side-menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+.header > .content-container > .side-menu > .item {
+    margin-right: 1rem;
+}
+
+.header > .content-container > .side-menu > .item > .link {
+    font-size: 1.2rem;
+    font-weight: 500;
+    display: inline-block;
+    padding: 1.25rem 0.2rem;
+}
+
+.object-input {
+    background-color: rgb(255, 255, 255);
+    border: 0.12rem solid rgb(210, 210, 210);
+    border-radius: 0.25rem;
+    box-sizing: border-box;
+    font: inherit;
+    padding: 1rem 1rem;
+    outline: none;
+}
+
+.object-input:focus {
+    border: 0.12rem solid rgb(var(--concept-color-orange));
+}
+
+.object-button {
+    background-color: rgb(var(--concept-color-orange));
+    border-radius: 0.25rem;
+    color: rgb(255, 255, 255);
+    padding: 1rem 1rem;
+    font: inherit;
+    border: none;
+    cursor: pointer;
+}
+
+.object-button:hover {
+    background-color: rgb(var(--concept-color-orange-dim));
+}
+
+.footer {
+    bottom: 0;
+    width: 100%;
+    height: 5rem;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 0 0.0625rem 0.0625rem rgba(0, 0, 0, 10%);
+    box-sizing: border-box;
+    align-items: stretch;
+    flex-direction: row;
+    justify-content: center;
+    position: absolute;
+    z-index: 8;
+    padding: 0 5rem;
+}
+
+.footer > .content-container > .content-list-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.footer > .content-container > .content-list-container > .item {
+    margin-right: 2rem ;
+}
+
+body > .main > .register-form > .warning {
+    color: rgb(231, 76, 60);
+    display: none;
+}
+
+body > .main > .register-form > .warning.visible {
+    display: block;
+}
+

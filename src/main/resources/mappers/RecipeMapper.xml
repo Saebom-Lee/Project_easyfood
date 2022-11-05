@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.easyfood.community.mappers.IRecipeMapper">
+    <delete id="deleteArticle">
+        DELETE
+        FROM `easyfood_recipe`.`articles`
+        WHERE `index` = #{index} LIMIT 1
+    </delete>
+    <delete id="deleteComment">
+        DELETE
+        FROM `easyfood_recipe`.`comments`
+        WHERE `index` = #{index} LIMIT 1
+    </delete>
+    <insert id="insertImage"
+            useGeneratedKeys="true"
+            keyColumn="index"
+            keyProperty="index"
+            parameterType="com.easyfood.community.entities.recipe.ImageEntity">
+        INSERT INTO `easyfood_recipe`.`images`(`user_email`, `created_at`, `name`, `mime`, `data`)
+        VALUES (#{userEmail}, #{createdAt}, #{name}, #{mime}, #{data})
+    </insert>
+    <insert id="insertArticle"
+            useGeneratedKeys="true"
+            keyColumn="index"
+            keyProperty="index"
+            parameterType="com.easyfood.community.entities.recipe.ArticleEntity">
+        INSERT INTO `easyfood_recipe`.`articles`(`user_email`, `created_at`, `capacity`, `title`, `content`,
+                                                 `cover_image`, `cover_image_mime`)
+        VALUES (#{userEmail}, #{createdAt}, #{capacity}, #{title}, #{content}, #{coverImage}, #{coverImageMime})
+    </insert>
+    <insert id="insertComment"
+            useGeneratedKeys="true"
+            keyColumn="index"
+            keyProperty="index"
+            parameterType="com.easyfood.community.entities.recipe.CommentEntity">
+        INSERT INTO `easyfood_recipe`.`comments`(`board_index`, `comment_index`, `comment_order`, `comment_depth`,
+                                                 `user_email`, `created_at`, `content`)
+        VALUES (#{boardIndex}, #{commentIndex}, #{commentOrder}, #{commentDepth}, #{userEmail}, #{createdAt},
+                #{content})
+    </insert>
+    <select id="selectImageByIndex"
+            resultType="com.easyfood.community.entities.recipe.ImageEntity">
+        SELECT `index`      AS `index`,
+               user_email   AS `userEmail`,
+               `created_at` AS `createdAt`,
+               `name`       AS `name`,
+               `mime`       AS `mime`,
+               `data`       AS `data`
+        FROM `easyfood_recipe`.`images`
+        WHERE `index` = #{index} LIMIT 1
+    </select>
+    <select id="selectArticlesForSearch"
+            resultType="com.easyfood.community.dtos.recipe.ArticleSearchDto"><![CDATA[
+        SELECT `article`.`index`      AS `index`,
+               `article`.user_email   AS `userEmail`,
+               `article`.`created_at` AS `createdAt`,
+               `article`.`capacity`   AS `capacity`,
+               `article`.`title`      AS `title`,
+            LEFT (`article`.`content`, 100) AS `content`,
+            `user`.`name` AS `userName`
+        FROM `easyfood_recipe`.`articles` AS `article`
+            LEFT JOIN `easyfood_member`.`users` AS `user`
+        ON `article`.`user_email` = `user`.`email`
+        WHERE IF(#{lastArticleIndex}
+            < 0
+            , -2
+            , `article`.`index`)
+            < #{lastArticleIndex}
+        ORDER BY `article`.`index` DESC
+            LIMIT 8
+        ]]></select>
+    <select id="selectByContent"
+            resultType="com.easyfood.community.dtos.recipe.ArticleSearchDto"><![CDATA[
+        SELECT `article`.`index`      AS `index`,
+               `article`.user_email   AS `userEmail`,
+               `article`.`created_at` AS `createdAt`,
+               `article`.`capacity`   AS `capacity`,
+               `article`.`title`      AS `title`,
+            LEFT (`article`.`content`, 100) AS `content`,
+            `user`.`name` AS `userName`
+        FROM `easyfood_recipe`.`articles` AS `article`
+            LEFT JOIN `easyfood_member`.`users` AS `user`
+        ON `article`.`user_email` = `user`.`email`
+        WHERE `content` LIKE CONCAT('%', #{keyword}, '%')
+        AND IF(#{lastArticleIndex}
+            < 0
+            , -2
+            , `article`.`index`)
+            < #{lastArticleIndex}
+        ORDER BY `article`.`index` DESC
+            LIMIT 8
+        ]]></select>
+    <select id="selectCommentsForSearch"
+            resultType="com.easyfood.community.dtos.recipe.CommentSearchDto">
+        SELECT `comment`.`index`       AS `index`,
+               `comment`.`board_index` AS `boardIndex`,
+               `comment`.user_email    AS `userEmail`,
+               `comment`.`created_at`  AS `createdAt`,
+            LEFT (`comment`.`content`, 100) AS `content`,
+            `user`.`name` AS `userName`
+        FROM `easyfood_recipe`.`comments` AS `comment`
+            LEFT JOIN `easyfood_member`.`users` AS `user`
+        ON `comment`.`user_email` = `user`.`email`
+        ORDER BY `comment`.`index` DESC
+    </select>
+    <select id="selectArticleByIndex"
+            resultType="com.easyfood.community.entities.recipe.ArticleEntity">
+        SELECT `index`            AS `index`,
+               `user_email`       AS `userEmail`,
+               `created_at`       AS `createdAt`,
+               `capacity`         AS `capacity`,
+               `cover_image`      AS `coverImage`,
+               `cover_image_mime` AS `coverImageMime`,
+               `title`            AS `title`,
+               `content`          AS `content`
+        FROM `easyfood_recipe`.`articles`
+        WHERE `index` = #{index} LIMIT 1
+    </select>
+    <select id="selectCommentByIndex"
+            resultType="com.easyfood.community.entities.recipe.CommentEntity">
+        SELECT `index`         AS `index`,
+               `board_index`   AS `boardIndex`,
+               `comment_index` AS `commentIndex`,
+               `comment_order` AS `commentOrder`,
+               `comment_depth` AS `commentDepth`,
+               `user_email`    AS `userEmail`,
+               `created_at`    AS `createdAt`,
+               `content`       AS `content`
+        FROM `easyfood_recipe`.`comments`
+        WHERE `index` = #{commentId}
+         LIMIT 1
+    </select>
+    <select id="selectCountTotal"
+            resultType="_int">
+        SELECT COUNT(0)
+        FROM `easyfood_recipe`.`articles`
+    </select>
+    <!--    <select id="findLike"-->
+    <!--            resultType="_int">-->
+    <!--        SELECT COUNT(0)-->
+    <!--        FROM `easyfood_recipe`.`likes`-->
+    <!--        WHERE `article_index` = #{articleIndex}-->
+    <!--          AND `user_email` = #{userEmail}-->
+    <!--    </select>-->
+
+    <update id="updateArticle" parameterType="com.easyfood.community.entities.recipe.ArticleEntity">
+        UPDATE `easyfood_recipe`.`articles`
+        SET `user_email`      = #{userEmail},
+            `created_at`      = #{createdAt},
+            `capacity`        = #{capacity},
+            `cover_image`     = #{coverImage},
+            `cover_image_mime`= #{coverImageMime},
+            `title`           = #{title},
+            `content`         = #{content}
+        WHERE `index` = #{index} LIMIT 1
+    </update>
+</mapper>

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>요리 연구소</title>
+    <th:block th:insert="~{fragments/head.html :: content}"></th:block>
+    <link rel="stylesheet" th:href="@{/recipe/resources/stylesheets/read.css}">
+    <script defer th:src="@{/recipe/resources/scripts/read.js}"></script>
+</head>
+<body class="layout">
+<th:block th:replace="~{fragments/header.html :: content}"></th:block>
+<main class="main">
+    <form class="form" id="firstForm">
+        <div class="content-container">
+            <div class="content">
+                <img alt="" class="cover-image" id="coverImage">
+                <h1 class="title" id="title"></h1>
+                <div class="name-container">
+                    <span class="name" id="name"></span>
+                    <span class="createdAt" id="createdAt"></span>
+                    <input class="modifyButton" id="modifyButton" value="수정">
+                    <input class="deleteButton" id="deleteButton" value="삭제">
+                </div>
+                <hr class="line">
+                <div class="content" id="content"></div>
+                <hr class="line">
+            </div>
+            <div class="button-container">
+                <input id="back" class="object-button back" name="back" type="button" value="목록">
+            </div>
+            <hr class="line">
+        </div>
+    </form>
+    <form class="form" id="secondForm">
+<!--        <div class="login-container" th:if="${session.memberUser == null}">-->
+<!--            <a class="login" th:href="@{/member/userLogin}">로그인 하시고 함께 요리해요.</a>-->
+<!--        </div>-->
+        <div class="comment-write-container" id="commentWriteContainer">
+            <span class="writeName" id="writeName">작성자작성자작성자</span>
+            <input class="object-input" id="commentWrite" name="content" maxlength="1000"
+                   placeholder="댓글을 입력해주세요.">
+            <button class="object-button" id="commentWriteButton" type="submit">작성하기</button>
+        </div>
+        <hr class="line">
+    </form>
+    <div class="_comment-container" id="commentContainer">
+        <div class="commentsContainer visible">
+<!--            <div class="commentContent" id="commentContent">댓글 내용</div>-->
+<!--            <span class="commentName" id="commentName">댓글 작성자</span>-->
+<!--            <span class="commentCreatedAt" id="commentCreatedAt">20221030</span>-->
+
+            <div class="buttonContainer" id="buttonContainer">
+<!--                <input class="commentModifyButton visible" id="commentModifyButton" value="수정">-->
+<!--                <input class="commentDeleteButton visible" id="commentDeleteButton" value="삭제">-->
+                <!--            <hr class="line">-->
+            </div>
+        </div>
+<!--        <div class="comment-modify-container visible" id="modifyContainer">-->
+<!--            <span class="modifyName" id="modifyName">작성자작성자작성자</span>-->
+<!--            <input class="object-input" id="modifyContent" name="content" maxlength="1000"-->
+<!--                   placeholder="댓글을 입력해주세요.">-->
+<!--            <button class="object-button" id="modifyContentButton" type="submit">수정하기</button>-->
+<!--        </div>-->
+    </div>
+    </div>
+</main>
+<th:block th:replace="~{fragments/footer.html :: content}"></th:block>
+</body>
+</html>

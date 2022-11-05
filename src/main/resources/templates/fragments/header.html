@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<header class="header" th:fragment="content">
+    <div class="content-container">
+        <a class="logo-container" th:href="@{/}">
+            <img alt="이지푸드" class="logo" th:src="@{/resources/images/easyfood_donut.png}">
+        </a>
+        <ul class="menu">
+            <li class="item">
+                <a class="link" th:href="@{/recipe/}">요리 연구소</a>
+            </li>
+            <li class="item">
+                <a class="link" th:href="@{/consulting/}">요리 상담소</a>
+            </li>
+<!--            <li class="item">-->
+<!--                <a class="link" th:href="@{/free/}">자유게시판</a>-->
+<!--            </li>-->
+        </ul>
+<!--        <a class="search" th:href="@{/search/}">-->
+<!--            <i class="icon fa-solid fa-magnifying-glass"></i>-->
+<!--        </a>-->
+        <ul class="side-menu">
+            <li class="item" th:if="${session.memberUser == null}">
+                <a class="link" th:href="@{/member/userLogin}">로그인</a>
+            </li>
+            <li class="item" th:if="${session.memberUser == null}">
+                <a class="link" th:href="@{/member/userEmail}">회원가입</a>
+            </li>
+
+            <li class="item" th:if="${session.memberUser != null}">
+                <a class="link" th:href="@{/member/userLogout}">로그아웃</a>
+            </li>
+            <li class="item" th:if="${session.memberUser != null}">
+                <a class="link" th:href="@{/myPage/}">마이페이지</a>
+            </li>
+        </ul>
+    </div>
+</header>
+</html>
