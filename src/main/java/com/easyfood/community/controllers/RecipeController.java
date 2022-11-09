@@ -12,7 +12,6 @@ import com.easyfood.community.services.MemberService;
 import com.easyfood.community.services.RecipeService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.xml.internal.bind.v2.TODO;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -234,52 +233,32 @@ public class RecipeController {
     @RequestMapping(value = "comment/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String patchComment(@SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user,
-                               @PathVariable(value = "id") int id, HttpServletResponse response
-//                               @RequestParam(value = "commentId") int commentId
+                               @PathVariable(value = "id") int id, HttpServletResponse response,
+                               @RequestParam(value = "commentId") int commentId
     ) throws JsonProcessingException {
-
-//        CommentEntity[] commentEntity = this.recipeService.getComment(commentId, id);
-//        if (commentEntity == null) {
-//            return null;
-//        }
-
-//        UserEntity commentUser = this.memberService.getUser(commentEntity.getUserEmail());
 
         ObjectMapper objectMapper = new ObjectMapper();
         JSONObject responseJson = new JSONObject();
         CommentSearchDto[] comments = this.recipeService.searchComments();
-//        CommentSearchDto[] commentSearchDtos = this.recipeService.getComment(commentId, id);
-//        if(commentSearchDtos == null){
-//            return null;
-//        }
         for (CommentSearchDto comment : comments) {
             comment.setContent(comment.getContent().replaceAll("<[^>]*>", "")
                     .replaceAll("&[^;]*;", ""));
         }
-//        for (CommentSearchDto commentSearchDto : commentSearchDtos){
-//            commentSearchDto.getUserEmail();
-//            UserEntity commentUser = this.memberService.getUser(commentSearchDto.getUserEmail());
-////            responseJson.put("mine", user != null && user.equals(commentUser));
-//            responseJson.put(CommentEntity.ATTRIBUTE_COMMENTS_PLURAL, new JSONArray(objectMapper.writeValueAsString(commentUser)));
-//        }
 
         responseJson.put(CommentEntity.ATTRIBUTE_NAME_PLURAL, new JSONArray(objectMapper.writeValueAsString(comments)));
-//        responseJson.put(CommentEntity.ATTRIBUTE_COMMENTS_PLURAL, new JSONArray(objectMapper.writeValueAsString(commentUser)));
+        responseJson.put("writeName", user.getName());
         return responseJson.toString();
     }
 
-    @RequestMapping(value = "comment/{commentId}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "comment", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String deleteComment(@SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user,
-                                @PathVariable(value = "commentId") int commentId) {
+                                @RequestParam(value = "commentId") int commentId
+    ) {
         JSONObject responseJson = new JSONObject();
         CommentEntity comment = this.recipeService.getComment(commentId);
         if (comment == null) {
             responseJson.put(IResult.ATTRIBUTE_NAME, CommonResult.FAILURE);
-            return responseJson.toString();
-        }
-        if (user == null || !user.getEmail().equals(comment.getUserEmail())) {
-            responseJson.put(IResult.ATTRIBUTE_NAME, "warn");
             return responseJson.toString();
         }
         IResult result = this.recipeService.deleteComment(commentId);
@@ -287,7 +266,19 @@ public class RecipeController {
         return responseJson.toString();
     }
 
-
+    @RequestMapping(value = "comment/{id}", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String patchComment(@RequestParam(value = "commentId") int commentId,
+                               @SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user,
+                               @PathVariable(value = "id") int id, CommentEntity comment){
+        comment.setIndex(commentId)
+                .setBoardIndex(id)
+                .setUserEmail(user.getEmail());
+        IResult result = this.recipeService.modifyComment(comment);
+        JSONObject responseJson = new JSONObject();
+        responseJson.put(IResult.ATTRIBUTE_NAME, result.name().toLowerCase());
+        return responseJson.toString();
+    }
 
     @RequestMapping(value = "modify/{id}", method = RequestMethod.GET)
     public ModelAndView getModify(@SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user,

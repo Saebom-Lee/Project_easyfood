@@ -12,6 +12,10 @@ body > .main > .form > .content-container {
     width: 50rem;
 }
 
+body > .main > .content-container > .content > .content * {
+    max-width: 100%;
+}
+
 body > .main > .form > .content-container > .button-container {
     align-items: center;
     display: flex;
@@ -39,7 +43,6 @@ body > .main > .form > .content-container > .button-container > .object-button {
     width: 1.75rem;
 }
 
-.replyModifyButton,
 .commentModifyButton {
     background-color: rgb(var(--concept-color-orange));
     border-radius: 0.25rem;
@@ -54,13 +57,11 @@ body > .main > .form > .content-container > .button-container > .object-button {
     width: 1.75rem;
 }
 
-.replyModifyButton.visible,
 .commentModifyButton.visible,
 .modifyButton.visible {
     display: block;
 }
 
-.replyModifyButton:hover,
 .commentModifyButton:hover,
 .modifyButton:hover {
     background-color: rgb(var(--concept-color-orange-dim));
@@ -80,7 +81,6 @@ body > .main > .form > .content-container > .button-container > .object-button {
     width: 1.75rem;
 }
 
-.replyDeleteButton,
 .commentDeleteButton {
     background-color: #c7c7c7;
     border-radius: 0.25rem;
@@ -94,13 +94,11 @@ body > .main > .form > .content-container > .button-container > .object-button {
     width: 1.75rem;
 }
 
-.replyDeleteButton.visible,
 .commentDeleteButton.visible,
 .deleteButton.visible {
     display: block;
 }
 
-.replyDeleteButton:hover,
 .commentDeleteButton:hover,
 .deleteButton:hover {
     background-color: #bbbbbb;
@@ -124,22 +122,25 @@ body > .main > .form > .content-container > .content > .name-container {
 }
 
 body > .main > .form > .content-container > .content > .name-container > .name {
+    margin-right: 0.5rem;
     white-space: nowrap;
 }
 
-/*.icon {*/
-/*    font-size: 1.5rem;*/
-/*}*/
-
-/*.icon.visible {*/
-/*    color: red;*/
-/*}*/
-
 body > .main > .form > .content-container > .content > .name-container > .createdAt {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    white-space: nowrap;
     width: 50rem;
-    color: #bbbbbb;
+}
+
+body > .main > .form > .content-container > .content > .name-container > .view-container {
+    width: 50rem;
     margin-left: 0.5rem;
     white-space: nowrap;
+}
+
+.icon {
+    color: #c7c7c7;
 }
 
 .line {
@@ -197,7 +198,7 @@ body > .main > .form > .content-container > .content > .name-container > .create
     color: #bbbbbb;
 }
 
-._comment-container > .commentsContainer > * {
+._comment-container > .commentsContainer > *:not(.commentContent) {
     margin-bottom: 0.25rem;
     white-space: nowrap;
 }
@@ -223,11 +224,6 @@ body > .main > .form > .content-container > .content > .name-container > .create
     white-space: nowrap;
 }
 
-.icon {
-    font-size: 1.5rem;
-    margin: 1.5rem 1rem 1.5rem 1.5rem;
-}
-
 .login-container {
     align-items: center;
     display: flex;
@@ -240,6 +236,52 @@ body > .main > .form > .content-container > .content > .name-container > .create
     color: rgb(var(--concept-color-orange-dim));
 }
 
+.change-container {
+    top: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    overflow: hidden auto;
+    pointer-events: none;
+    z-index: 9;
+    position: fixed;
+}
+
+.change-container > ._change-container {
+    top: 0;
+    left: 0;
+    width: 35rem;
+    height: 15rem;
+    background-color: rgb(199, 199, 199, 25%);
+    z-index: 0;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.change-container > ._change-container > .change {
+
+}
+
+.change-container > ._change-container > .change > .cancel-button {
+    background-color: #c7c7c7;
+    border-radius: 0.25rem;
+    color: rgb(255, 255, 255);
+    padding: 1rem 1rem;
+    font: inherit;
+    border: none;
+    cursor: pointer;
+    width: 5rem;
+}
+
+.change-container > ._change-container > .change > .cancel-button:hover {
+    background-color: #bbbbbb;
+}
+
+.change-container.visible {
+    opacity: 1;
+    pointer-events: all;
+}
 
 
 

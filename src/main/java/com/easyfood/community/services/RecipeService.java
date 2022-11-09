@@ -8,12 +8,9 @@ import com.easyfood.community.entities.recipe.ImageEntity;
 import com.easyfood.community.enums.CommonResult;
 import com.easyfood.community.interfaces.IResult;
 import com.easyfood.community.mappers.IRecipeMapper;
-import com.easyfood.community.models.PagingModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
-import java.util.List;
 
 @Service(value = "com.easyfood.community.services.RecipeService")
 public class RecipeService {
@@ -34,10 +31,6 @@ public class RecipeService {
                 ? CommonResult.SUCCESS
                 : CommonResult.FAILURE;
     }
-
-//    public ArticleEntity getArticle(int index) {
-//        return this.recipeMapper.selectArticleByIndex(index);
-//    }
 
     public ArticleSearchDto[] searchArticles(int lastArticleIndex) {
         return this.recipeMapper.selectArticlesForSearch(lastArticleIndex);
@@ -84,6 +77,19 @@ public class RecipeService {
                 : CommonResult.FAILURE;
     }
 
+    public IResult modifyComment(CommentEntity comment) {
+        CommentEntity oldComment = this.recipeMapper.selectCommentByIndex(comment.getIndex());
+        if (oldComment == null) {
+            return CommonResult.FAILURE;
+        }
+        comment.setIndex(oldComment.getIndex())
+                .setUserEmail(oldComment.getUserEmail())
+                .setCreatedAt(oldComment.getCreatedAt());
+        return this.recipeMapper.updateComment(comment) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
+    }
+
     public IResult deleteArticle(int index) {
         return this.recipeMapper.deleteArticle(index) > 0
                 ? CommonResult.SUCCESS
@@ -94,10 +100,6 @@ public class RecipeService {
         return this.recipeMapper.deleteComment(index) > 0
                 ? CommonResult.SUCCESS
                 : CommonResult.FAILURE;
-    }
-
-    public int getTotalCount(ArticleEntity article) {
-        return this.recipeMapper.selectCountTotal(article);
     }
 
     public IResult putComment(CommentEntity comment){

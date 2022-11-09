@@ -13,15 +13,4 @@ public class ArticleSearchDto extends ArticleEntity {
         this.userName = userName;
         return this;
     }
-
-    private String keyword;
-
-    public String getKeyword() {
-        return keyword;
-    }
-
-    public ArticleSearchDto setKeyword(String keyword) {
-        this.keyword = keyword;
-        return this;
-    }
 }

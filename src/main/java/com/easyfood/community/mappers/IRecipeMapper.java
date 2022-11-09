@@ -5,15 +5,8 @@ import com.easyfood.community.dtos.recipe.CommentSearchDto;
 import com.easyfood.community.entities.recipe.ArticleEntity;
 import com.easyfood.community.entities.recipe.CommentEntity;
 import com.easyfood.community.entities.recipe.ImageEntity;
-import com.easyfood.community.models.PagingModel;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
 
 @Mapper
 public interface IRecipeMapper {
@@ -39,6 +32,8 @@ public interface IRecipeMapper {
     ImageEntity selectImageByIndex(@Param(value = "index") int index);
 
     int updateArticle(ArticleEntity article);
+
+    int updateComment(CommentEntity comment);
 
     int deleteArticle(@Param(value = "index") int index);
 

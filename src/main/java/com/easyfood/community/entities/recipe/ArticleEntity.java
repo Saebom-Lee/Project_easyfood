@@ -14,7 +14,6 @@ public class ArticleEntity {
     private int index;
     private String userEmail;
     private Date createdAt;
-    private int capacity;
     private String title;
     private String content;
     private byte[] coverImage;
@@ -28,7 +27,6 @@ public class ArticleEntity {
         this.index = index;
         this.userEmail = userEmail;
         this.createdAt = createdAt;
-        this.capacity = capacity;
         this.title = title;
         this.content = content;
         this.coverImage = coverImage;
@@ -59,15 +57,6 @@ public class ArticleEntity {
 
     public ArticleEntity setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
-        return this;
-    }
-
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public ArticleEntity setCapacity(int capacity) {
-        this.capacity = capacity;
         return this;
     }
 

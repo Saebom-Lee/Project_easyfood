@@ -32,12 +32,22 @@ registerForm.onsubmit = e => {
         return false;
     }
     if (registerForm['name'].value === '') {
-        registerWarning.show('이름을 입력해주세요.');
+        registerWarning.show('닉네임을 입력해주세요.');
         registerForm['name'].focus();
         return false;
     }
     if (registerForm['contact'].value === '') {
         registerWarning.show('연락처를 입력해주세요.');
+        registerForm['contact'].focus();
+        return false;
+    }
+    if (registerForm['contact'].value === '') {
+        registerWarning.show('연락처를 입력해주세요.');
+        registerForm['contact'].focus();
+        return false;
+    }
+    if (!new RegExp('^(\\d{10,12})$').test(registerForm['contact'].value)) {
+        registerWarning.show('올바른 연락처를 입력해주세요.');
         registerForm['contact'].focus();
         return false;
     }
@@ -68,15 +78,14 @@ registerForm.onsubmit = e => {
                     case 'success':
                         window.location.href = '/';
                         break;
-                    // case 'duplicate':
-                    //     registerWarning.show('입력하신 이메일을 사용할 수 없습니다. 다른 이메일을 입력해 주세요.');
-                    //     break;
+                    case 'duplicate':
+                        registerWarning.show('입력하신 닉네임을 사용할 수 없습니다.\n다른 닉네임을 입력해주세요.');
+                        break;
                     default:
-                        registerWarning.show('알 수 없는 이유로 회원가입하지 못 하였습니다.\n잠시 후 다시 시도해주세요.');
+                        registerWarning.show('알 수 없는 이유로 회원가입하지 못하였습니다.\n잠시 후 다시 시도해주세요.');
                 }
             } else {
-                // registerWarning.show('서버와 통신하지 못하였습니다. 잠시 후 다시 시도해 주세요.');
-                registerWarning.show('입력하신 이메일을 사용할 수 없습니다.\n다른 이메일을 입력해주세요.');
+                registerWarning.show('서버와 통신하지 못하였습니다. 잠시 후 다시 시도해 주세요.');
             }
         }
     };

@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+body > .main {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 7rem;
+
+}
+
+body > .main > .secession-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    width: 30rem;
+}
+
+body > .main > .secession-form > *:not(.warning) {
+    width: 30rem;
+    margin-bottom: 2rem;
+}
+
+body > .main > .secession-form > .object-label > .object-input {
+    margin-top: 0.5rem;
+    width: 30rem;
+}
+
+
+body > .main > .secession-form > .warning {
+    color: rgb(231, 76, 60);
+    display: none;
+}
+
+body > .main > .secession-form > .warning.visible {
+    display: block;
+}

@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>이지푸드 회원탈퇴</title>
+    <th:block th:insert="~{fragments/head.html :: content}"></th:block>
+    <link rel="stylesheet" th:href="@{/member/resources/stylesheets/userSecession.css}">
+    <script defer th:src="@{/member/resources/scripts/userSecession.js}"></script>
+</head>
+<body class="layout">
+<th:block th:replace="~{fragments/header.html :: content}"></th:block>
+<main class="main">
+    <form class="secession-form" id="secessionForm">
+        <h2>회원탈퇴</h2>
+        <span>회원 탈퇴 이후에는 서비스 관련 정보를 복구할 수 없습니다.<br>회원 탈퇴 신청 이전에 아래 항목을 확인하여 주세요.</span>
+        <span>정보통신망 이용 촉진 및 정보보호 등에 관한 법률에 따라, 고객님의 개인정보는 안전하게 파기됩니다.<br>(개인정보보호법 제29조 및 시행령 제 16조의 개인정보의 파기)</span>
+        <label class="object-label">
+            <div>비밀번호 재입력</div>
+            <input class="object-input" name="password" type="password" placeholder="비밀번호를 입력해주세요." maxlength="50">
+        </label>
+        <span class="warning visible" id="secessionWarning"></span>
+        <input class="object-button" name="secessionButton" type="submit" value="탈퇴하기">
+    </form>
+</main>
+<th:block th:replace="~{fragments/footer.html :: content}"></th:block>
+</body>
+</html>

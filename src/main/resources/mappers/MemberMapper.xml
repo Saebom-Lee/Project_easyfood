@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.easyfood.community.mappers.IMemberMapper">
+    <delete id="deleteUser">
+        DELETE
+        FROM `easyfood_member`.`users`
+        WHERE `email` = #{email} LIMIT 1
+    </delete>
     <insert id="insertUser"
             parameterType="com.easyfood.community.entities.member.UserEntity">
         INSERT INTO `easyfood_member`.`users` (`email`, `password`, `name`, `created_at`, `email_auth_flag`,
@@ -8,12 +13,6 @@
         VALUES (#{email}, #{password}, #{name}, #{createdAt}, #{isEmailAuth}, #{contact}, #{policyTermsAt},
                 #{policyPrivacyAt}, #{policyMarketingAt})
     </insert>
-
-<!--    <select id="selectUserCountByEmail" resultType="_int">-->
-<!--        SELECT COUNT(0)-->
-<!--        FROM `easyfood_member`.`users`-->
-<!--        WHERE `email` = #{email}-->
-<!--    </select>-->
 
     <select id="selectUserByEmailPassword"
             parameterType="com.easyfood.community.entities.member.UserEntity"
@@ -46,6 +45,16 @@
                `email_auth_flag`     AS `isEmailAuth`
         FROM `easyfood_member`.`users`
         WHERE `email` = #{email} LIMIT 1
+    </select>
+    <select id="selectUserCountByEmail" resultType="_int">
+        SELECT COUNT(0)
+        FROM `easyfood_member`.`users`
+        WHERE `email` = #{email}
+    </select>
+    <select id="selectUserCountByName" resultType="_int">
+        SELECT COUNT(0)
+        FROM `easyfood_member`.`users`
+        WHERE `name` = #{name}
     </select>
 
 </mapper>

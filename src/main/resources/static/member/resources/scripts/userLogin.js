@@ -9,7 +9,6 @@ const loginWarning = {
 };
 
 loginForm.onsubmit = e => {
-    // 그냥 form 하면 ?가 생기는데,,
     e.preventDefault();
     loginWarning.hide();
     if (loginForm['email'].value === '') {

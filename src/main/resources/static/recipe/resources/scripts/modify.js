@@ -64,10 +64,10 @@ form.onsubmit = e => {
                         window.location.href = `../read/${id}`;
                         break;
                     default:
-                        warning.show('알 수 없는 이유로 게시글을 수정하지 못하였습니다. \n 잠시 후 다시 시도해주세요.');
+                        warning.show('알 수 없는 이유로 게시글을 수정하지 못하였습니다. \n잠시 후 다시 시도해주세요.');
                 }
             } else {
-                warning.show('서버와 통신하지 못하였습니다. \n 잠시 후 다시 시도해주세요.');
+                warning.show('서버와 통신하지 못하였습니다. 잠시 후 다시 시도해주세요.');
             }
         }
     };
@@ -102,7 +102,7 @@ const loadArticle = () => {
                     window.close();
                 }
             } else {
-                alert('서버와 통신하지 못하였습니다.');
+                alert('서버와 통신하지 못하였습니다. 잠시 후 다시 시도해주세요.');
                 if (window.history.length > 0) {
                     window.history.back();
                 }

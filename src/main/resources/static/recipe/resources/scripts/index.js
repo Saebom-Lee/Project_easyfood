@@ -44,7 +44,7 @@ const indexPage = () => {
                     }
                 }
             } else {
-                alert('서버와 통신하지 못하였습니다. 잠시만 기다려주세요.');
+                alert('서버와 통신하지 못하였습니다. 잠시 후 다시 시도해주세요.');
             }
         }
     };
@@ -53,11 +53,6 @@ const indexPage = () => {
 
 let lastArticleId = -1;
 indexPage();
-
-// const more = window.document.getElementById('more');
-// more.addEventListener('click', () => {
-//     indexPage();
-// });
 
 const searchPage = () => {
 
@@ -103,7 +98,7 @@ const searchPage = () => {
                     }
                 }
             } else {
-                alert('서버와 통신하지 못하였습니다. 잠시만 기다려주세요.');
+                alert('서버와 통신하지 못하였습니다. 잠시 후 다시 시도해주세요.');
             }
         }
     };

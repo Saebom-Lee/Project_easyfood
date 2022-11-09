@@ -24,9 +24,9 @@
             keyColumn="index"
             keyProperty="index"
             parameterType="com.easyfood.community.entities.recipe.ArticleEntity">
-        INSERT INTO `easyfood_recipe`.`articles`(`user_email`, `created_at`, `capacity`, `title`, `content`,
+        INSERT INTO `easyfood_recipe`.`articles`(`user_email`, `created_at`, `title`, `content`,
                                                  `cover_image`, `cover_image_mime`)
-        VALUES (#{userEmail}, #{createdAt}, #{capacity}, #{title}, #{content}, #{coverImage}, #{coverImageMime})
+        VALUES (#{userEmail}, #{createdAt}, #{title}, #{content}, #{coverImage}, #{coverImageMime})
     </insert>
     <insert id="insertComment"
             useGeneratedKeys="true"
@@ -54,7 +54,6 @@
         SELECT `article`.`index`      AS `index`,
                `article`.user_email   AS `userEmail`,
                `article`.`created_at` AS `createdAt`,
-               `article`.`capacity`   AS `capacity`,
                `article`.`title`      AS `title`,
             LEFT (`article`.`content`, 100) AS `content`,
             `user`.`name` AS `userName`
@@ -74,7 +73,6 @@
         SELECT `article`.`index`      AS `index`,
                `article`.user_email   AS `userEmail`,
                `article`.`created_at` AS `createdAt`,
-               `article`.`capacity`   AS `capacity`,
                `article`.`title`      AS `title`,
             LEFT (`article`.`content`, 100) AS `content`,
             `user`.`name` AS `userName`
@@ -108,7 +106,6 @@
         SELECT `index`            AS `index`,
                `user_email`       AS `userEmail`,
                `created_at`       AS `createdAt`,
-               `capacity`         AS `capacity`,
                `cover_image`      AS `coverImage`,
                `cover_image_mime` AS `coverImageMime`,
                `title`            AS `title`,
@@ -135,22 +132,21 @@
         SELECT COUNT(0)
         FROM `easyfood_recipe`.`articles`
     </select>
-    <!--    <select id="findLike"-->
-    <!--            resultType="_int">-->
-    <!--        SELECT COUNT(0)-->
-    <!--        FROM `easyfood_recipe`.`likes`-->
-    <!--        WHERE `article_index` = #{articleIndex}-->
-    <!--          AND `user_email` = #{userEmail}-->
-    <!--    </select>-->
 
     <update id="updateArticle" parameterType="com.easyfood.community.entities.recipe.ArticleEntity">
         UPDATE `easyfood_recipe`.`articles`
         SET `user_email`      = #{userEmail},
             `created_at`      = #{createdAt},
-            `capacity`        = #{capacity},
             `cover_image`     = #{coverImage},
             `cover_image_mime`= #{coverImageMime},
             `title`           = #{title},
+            `content`         = #{content}
+        WHERE `index` = #{index} LIMIT 1
+    </update>
+    <update id="updateComment" parameterType="com.easyfood.community.entities.recipe.CommentEntity">
+        UPDATE `easyfood_recipe`.`comments`
+        SET `user_email`      = #{userEmail},
+            `created_at`      = #{createdAt},
             `content`         = #{content}
         WHERE `index` = #{index} LIMIT 1
     </update>

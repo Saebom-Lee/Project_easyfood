@@ -4,13 +4,12 @@ import com.easyfood.community.entities.member.UserEntity;
 import com.easyfood.community.enums.CommonResult;
 import com.easyfood.community.interfaces.IResult;
 import com.easyfood.community.services.MemberService;
+import com.easyfood.community.utils.CryptoUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -33,7 +32,7 @@ public class MemberController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "userLogin", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "userLogin", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String postUserLogin(HttpSession session,
                                 UserEntity user) {
@@ -67,6 +66,16 @@ public class MemberController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "userEmail", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String postUserEmail(@RequestParam(value = "email") String email) {
+        JSONObject responseJson = new JSONObject();
+        IResult result = this.memberService.checkEmail(email);
+        responseJson.put(IResult.ATTRIBUTE_NAME, result.name().toLowerCase());
+        return responseJson.toString();
+    }
+
+
     @RequestMapping(value = "userRegister", method = RequestMethod.GET)
     public ModelAndView getUserRegister(ModelAndView modelAndView) {
 
@@ -74,14 +83,17 @@ public class MemberController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "userRegister", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "userRegister", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String postUserRegister(@RequestParam(value = "policyMarketing", required = true) boolean policyMarketing,
+                                   @RequestParam(value = "name") String name,
                                    UserEntity user) {
         user.setCreatedAt(new Date())
                 .setEmailAuth(false)
                 .setPolicyPrivacyAt(new Date())
-                .setPolicyTermsAt(new Date());
+                .setPolicyTermsAt(new Date())
+                .setPolicyMarketingAt(policyMarketing ? new Date() : null)
+                .setName(name);
         IResult result;
         result = this.memberService.createUser(user);
         JSONObject responseJson = new JSONObject();
@@ -89,6 +101,25 @@ public class MemberController {
         return responseJson.toString();
     }
 
+    @RequestMapping(value = "userSecession", method = RequestMethod.GET)
+    public ModelAndView getUserSecession(ModelAndView modelAndView) {
 
+        modelAndView.setViewName("member/userSecession");
+        return modelAndView;
+    }
 
+    @RequestMapping(value = "userSecession", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String postUserSecession(@SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user,
+                                    @RequestParam(value = "password") String password) {
+
+        JSONObject responseJson = new JSONObject();
+        if (!CryptoUtils.hashSha512(password).equals(user.getPassword())) {
+            responseJson.put(IResult.ATTRIBUTE_NAME, "warn");
+            return responseJson.toString();
+        }
+        IResult result = this.memberService.secessionUser(user.getEmail());
+        responseJson.put(IResult.ATTRIBUTE_NAME, result.name().toLowerCase());
+        return responseJson.toString();
+    }
 }

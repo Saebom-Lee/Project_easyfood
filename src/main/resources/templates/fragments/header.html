@@ -6,12 +6,12 @@
             <img alt="이지푸드" class="logo" th:src="@{/resources/images/easyfood_donut.png}">
         </a>
         <ul class="menu">
-            <li class="item">
-                <a class="link" th:href="@{/recipe/}">요리 연구소</a>
-            </li>
-            <li class="item">
-                <a class="link" th:href="@{/consulting/}">요리 상담소</a>
-            </li>
+<!--            <li class="item">-->
+<!--                <a class="link" th:href="@{/recipe/}">요리 연구소</a>-->
+<!--            </li>-->
+<!--            <li class="item">-->
+<!--                <a class="link" th:href="@{/consulting/}">요리 상담소</a>-->
+<!--            </li>-->
 <!--            <li class="item">-->
 <!--                <a class="link" th:href="@{/free/}">자유게시판</a>-->
 <!--            </li>-->
@@ -30,8 +30,11 @@
             <li class="item" th:if="${session.memberUser != null}">
                 <a class="link" th:href="@{/member/userLogout}">로그아웃</a>
             </li>
+<!--            <li class="item" th:if="${session.memberUser != null}">-->
+<!--                <a class="link" th:href="@{/myPage/}">마이페이지</a>-->
+<!--            </li>-->
             <li class="item" th:if="${session.memberUser != null}">
-                <a class="link" th:href="@{/myPage/}">마이페이지</a>
+                <a class="link" th:href="@{/member/userSecession}">회원탈퇴</a>
             </li>
         </ul>
     </div>

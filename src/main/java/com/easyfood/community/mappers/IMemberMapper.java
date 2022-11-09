@@ -8,7 +8,11 @@ import org.apache.ibatis.annotations.Param;
 public interface IMemberMapper {
 
     int insertUser(UserEntity user);
-//    int selectUserCountByEmail(@Param(value = "email") String email);
     UserEntity selectUserByEmailPassword(UserEntity user);
     UserEntity selectUserByEmail(UserEntity user);
+    int selectUserCountByEmail(@Param(value = "email") String email);
+    int selectUserCountByName(@Param(value = "name") String name);
+    int deleteUser(@Param(value = "email") String email);
+
+
 }
