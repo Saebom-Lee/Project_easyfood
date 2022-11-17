@@ -54,15 +54,18 @@ public class RecipeController {
             throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         JSONObject responseJson = new JSONObject();
+        // 게시글을 불러와 ArticleSearchDto 배열에 넣은 후 article 내용에 있는 <~> 부분과 &~; 부분을 지운다.
         ArticleSearchDto[] articles = this.recipeService.searchArticles(lastArticleId);
         for (ArticleSearchDto article : articles) {
             article.setContent(article.getContent().replaceAll("<[^>]*>", "")
                     .replaceAll("&[^;]*;", ""));
         }
+        // articles 를 json 배열 형태로 변경하여 responseJson 에 넣는다.
         responseJson.put(ArticleEntity.ATTRIBUTE_NAME_PLURAL, new JSONArray(objectMapper.writeValueAsString(articles)));
         return responseJson.toString();
     }
 
+    // 검색
     @RequestMapping(value = "/", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String patchIndex(@RequestParam(value = "lastArticleId") int lastArticleId,
@@ -92,6 +95,7 @@ public class RecipeController {
         return modelAndView;
     }
 
+    // 게시글 작성
     @RequestMapping(value = "write", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String postWrite(@SessionAttribute(value = UserEntity.ATTRIBUTE_NAME) UserEntity user,
@@ -111,6 +115,7 @@ public class RecipeController {
         return responseJson.toString();
     }
 
+    // 커버 이미지
     @RequestMapping(value = "cover-image/{id}", method = RequestMethod.GET)
     public ResponseEntity<byte[]> getCoverImage(@PathVariable(value = "id") int id) {
         ArticleEntity article = this.recipeService.getArticle(id);
@@ -126,6 +131,7 @@ public class RecipeController {
         return new ResponseEntity<>(article.getCoverImage(), headers, HttpStatus.OK);
     }
 
+    // 이미지 다운로드용 매핑
     @RequestMapping(value = "image/{id}", method = RequestMethod.GET)
     public ResponseEntity<byte[]> getImage(@PathVariable(value = "id") int id) {
         ImageEntity image = this.recipeService.getImage(id);
@@ -141,6 +147,7 @@ public class RecipeController {
         return new ResponseEntity<>(image.getData(), headers, HttpStatus.OK);
     }
 
+    // 이미지 업로드용 매핑
     @RequestMapping(value = "image", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String postImage(@SessionAttribute(value = UserEntity.ATTRIBUTE_NAME) UserEntity user,
@@ -175,6 +182,7 @@ public class RecipeController {
         return modelAndView;
     }
 
+    // 게시글 불러오기
     @RequestMapping(value = "read/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String postRead(@SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user,
@@ -187,12 +195,15 @@ public class RecipeController {
         ObjectMapper objectMapper = new ObjectMapper();
         JSONObject responseJson = new JSONObject(objectMapper.writeValueAsString(article));
         UserEntity articleUser = this.memberService.getUser(article.getUserEmail());
+        // 로그인한 유저
         responseJson.put("writeName", user.getName());
+        // 게시글 작성자
         responseJson.put("userName", articleUser.getName());
         responseJson.put("mine", user != null && user.equals(articleUser));
         return responseJson.toString();
     }
 
+    // 게시글 삭제하기
     @RequestMapping(value = "read/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String deleteRead(@SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user,
@@ -212,6 +223,55 @@ public class RecipeController {
         return responseJson.toString();
     }
 
+    @RequestMapping(value = "modify/{id}", method = RequestMethod.GET)
+    public ModelAndView getModify(@SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user,
+                                  @PathVariable(value = "id") int id,
+                                  ModelAndView modelAndView) {
+        if (user == null) {
+            modelAndView.setViewName("redirect:/member/userLogin");
+            return modelAndView;
+        }
+        modelAndView.setViewName("recipe/modify");
+        return modelAndView;
+    }
+
+    // 게시글 수정하기
+    @RequestMapping(value = "modify/{id}", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String patchModify(@SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user,
+                              @PathVariable(value = "id") int id, HttpServletResponse response) throws JsonProcessingException {
+        ArticleEntity article = this.recipeService.getArticle(id);
+        if (article == null) {
+            response.setStatus(404);
+            return null;
+        }
+        if (user == null || !user.getEmail().equals(article.getUserEmail())) {
+            response.setStatus(403);
+            return null;
+        }
+        article.setCoverImage(null)
+                .setCoverImageMime(null);
+        return new ObjectMapper().writeValueAsString(article);
+    }
+
+    // 게시글 수정 정보 업데이트하기
+    @RequestMapping(value = "modify/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String postModify(@SessionAttribute(value = UserEntity.ATTRIBUTE_NAME) UserEntity user,
+                             @PathVariable(value = "id") int id,
+                             @RequestParam(value = "coverImageFile", required = false) MultipartFile coverImageFile,
+                             ArticleEntity article) throws IOException {
+        article.setIndex(id)
+                .setUserEmail(user.getEmail())
+                .setCoverImage(coverImageFile == null ? null : coverImageFile.getBytes())
+                .setCoverImageMime(coverImageFile == null ? null : coverImageFile.getContentType());
+        IResult result = this.recipeService.modifyArticle(article);
+        JSONObject responseJson = new JSONObject();
+        responseJson.put(IResult.ATTRIBUTE_NAME, result.name().toLowerCase());
+        return responseJson.toString();
+    }
+
+    // 댓글 작성하기
     @RequestMapping(value = "comment/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String postComment(@SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user,
@@ -230,6 +290,7 @@ public class RecipeController {
         return responseJson.toString();
     }
 
+    // 댓글 불러오기
     @RequestMapping(value = "comment/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String patchComment(@SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user,
@@ -250,6 +311,7 @@ public class RecipeController {
         return responseJson.toString();
     }
 
+    // 댓글 삭제하기
     @RequestMapping(value = "comment", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String deleteComment(@SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user,
@@ -266,6 +328,7 @@ public class RecipeController {
         return responseJson.toString();
     }
 
+    // 댓글 수정하기
     @RequestMapping(value = "comment/{id}", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String patchComment(@RequestParam(value = "commentId") int commentId,
@@ -279,51 +342,4 @@ public class RecipeController {
         responseJson.put(IResult.ATTRIBUTE_NAME, result.name().toLowerCase());
         return responseJson.toString();
     }
-
-    @RequestMapping(value = "modify/{id}", method = RequestMethod.GET)
-    public ModelAndView getModify(@SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user,
-                                  @PathVariable(value = "id") int id,
-                                  ModelAndView modelAndView) {
-        if (user == null) {
-            modelAndView.setViewName("redirect:/member/userLogin");
-            return modelAndView;
-        }
-        modelAndView.setViewName("recipe/modify");
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "modify/{id}", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public String patchModify(@SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user,
-                              @PathVariable(value = "id") int id, HttpServletResponse response) throws JsonProcessingException {
-        ArticleEntity article = this.recipeService.getArticle(id);
-        if (article == null) {
-            response.setStatus(404);
-            return null;
-        }
-        if (user == null || !user.getEmail().equals(article.getUserEmail())) {
-            response.setStatus(403);
-            return null;
-        }
-        article.setCoverImage(null)
-                .setCoverImageMime(null);
-        return new ObjectMapper().writeValueAsString(article);
-    }
-
-    @RequestMapping(value = "modify/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public String postModify(@SessionAttribute(value = UserEntity.ATTRIBUTE_NAME) UserEntity user,
-                             @PathVariable(value = "id") int id,
-                             @RequestParam(value = "coverImageFile", required = false) MultipartFile coverImageFile,
-                             ArticleEntity article) throws IOException {
-        article.setIndex(id)
-                .setUserEmail(user.getEmail())
-                .setCoverImage(coverImageFile == null ? null : coverImageFile.getBytes())
-                .setCoverImageMime(coverImageFile == null ? null : coverImageFile.getContentType());
-        IResult result = this.recipeService.modifyArticle(article);
-        JSONObject responseJson = new JSONObject();
-        responseJson.put(IResult.ATTRIBUTE_NAME, result.name().toLowerCase());
-        return responseJson.toString();
-    }
-
 }

@@ -8,6 +8,8 @@ const emailWarning = {
     }
 };
 
+// 이메일이 중복되면 중복메시지 표시
+// 중복되지 않으면 회원가입 페이지의 이메일 폼으로 입력한 이메일을 넘긴다.
 emailForm.onsubmit = e => {
     e.preventDefault();
     emailWarning.hide();

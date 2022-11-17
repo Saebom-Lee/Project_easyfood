@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>EASYFOOD :: 요리 연구소</title>
+    <title>EASYFOOD | 쉽게 만드는 요리</title>
     <th:block th:insert="~{fragments/head.html :: content}"></th:block>
     <link rel="stylesheet" th:href="@{/recipe/resources/stylesheets/read.css}">
     <script defer th:src="@{/recipe/resources/scripts/read.js}"></script>
@@ -17,13 +17,8 @@
                 <h1 class="title" id="title"></h1>
                 <div class="name-container">
                     <span class="name" id="name"></span>
-                    <i class="icon fa-solid fa-grip-lines-vertical"></i>
+                    <span class="vertical">|</span>
                     <span class="createdAt" id="createdAt"></span>
-<!--                    <i class="icon fa-solid fa-grip-lines-vertical"></i>-->
-<!--                    <span class="view-container" id="viewContainer">-->
-<!--                        <i class="fa-solid fa-eye"></i>-->
-<!--                        <span class="view" id="view"></span>-->
-<!--                    </span>-->
                     <input class="modifyButton" id="modifyButton" value="수정">
                     <input class="deleteButton" id="deleteButton" value="삭제">
                 </div>
@@ -39,7 +34,7 @@
     </form>
     <form class="form" id="secondForm">
         <div class="comment-write-container" id="commentWriteContainer">
-            <span class="writeName" id="writeName">작성자작성자작성자</span>
+            <span class="writeName" id="writeName">작성자</span>
             <input class="object-input" id="commentWrite" name="content" maxlength="1000"
                    placeholder="댓글을 입력해주세요.">
             <button class="object-button" id="commentWriteButton" type="submit">작성하기</button>
@@ -48,14 +43,7 @@
     </form>
     <div class="_comment-container" id="commentContainer">
         <div class="commentsContainer visible">
-            <!--            <div class="commentContent" id="commentContent">댓글 내용</div>-->
-            <!--            <span class="commentName" id="commentName">댓글 작성자</span>-->
-            <!--            <span class="commentCreatedAt" id="commentCreatedAt">20221030</span>-->
-
             <div class="buttonContainer" id="buttonContainer">
-                <!--                <input class="commentModifyButton visible" id="commentModifyButton" value="수정">-->
-                <!--                <input class="commentDeleteButton visible" id="commentDeleteButton" value="삭제">-->
-                <!--            <hr class="line">-->
             </div>
         </div>
     </div>

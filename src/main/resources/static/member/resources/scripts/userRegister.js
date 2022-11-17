@@ -76,7 +76,7 @@ registerForm.onsubmit = e => {
                 const responseJson = JSON.parse(xhr.responseText);
                 switch (responseJson['result']) {
                     case 'success':
-                        window.location.href = '/';
+                        window.location.href = './userLogin';
                         break;
                     case 'duplicate':
                         registerWarning.show('입력하신 닉네임을 사용할 수 없습니다.\n다른 닉네임을 입력해주세요.');

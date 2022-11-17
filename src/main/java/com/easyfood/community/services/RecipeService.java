@@ -43,6 +43,7 @@ public class RecipeService {
     public CommentSearchDto[] searchComments() {
         return this.recipeMapper.selectCommentsForSearch();
     }
+
     public ArticleEntity getArticle(int index) {
         return this.recipeMapper.selectArticleByIndex(index);
     }

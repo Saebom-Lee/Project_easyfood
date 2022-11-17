@@ -17,6 +17,9 @@ const coverImagePreview = window.document.getElementById('coverImagePreview');
 coverImagePreview.addEventListener('click', () => {
     form['coverImage'].click();
 });
+
+// 업로드 된 커버 이미지가 없으면 noCoverImage 보이기
+// 업로드 된 커버 이미지가 있으면 이미지 보이기
 form['coverImage'].addEventListener('input', () => {
     if ((form['coverImage'].files?.length ?? 0) === 0) {
         noCoverImage.classList.add('visible');

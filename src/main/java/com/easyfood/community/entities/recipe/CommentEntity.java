@@ -7,7 +7,6 @@ public class CommentEntity {
 
     public static final String ATTRIBUTE_NAME = "recipeComment";
     public static final String ATTRIBUTE_NAME_PLURAL = "recipeComments";
-    public static final String ATTRIBUTE_COMMENTS_PLURAL = "comments";
 
     public static final CommentEntity build() {
         return new CommentEntity();

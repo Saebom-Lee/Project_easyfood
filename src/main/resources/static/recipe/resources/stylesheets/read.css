@@ -139,7 +139,8 @@ body > .main > .form > .content-container > .content > .name-container > .view-c
     white-space: nowrap;
 }
 
-.icon {
+.vertical {
+    font-weight: bold;
     color: #c7c7c7;
 }
 
@@ -257,10 +258,6 @@ body > .main > .form > .content-container > .content > .name-container > .view-c
     display: flex;
     flex-direction: row;
     justify-content: center;
-}
-
-.change-container > ._change-container > .change {
-
 }
 
 .change-container > ._change-container > .change > .cancel-button {

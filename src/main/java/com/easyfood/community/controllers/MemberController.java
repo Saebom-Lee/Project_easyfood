@@ -26,12 +26,14 @@ public class MemberController {
         this.memberService = memberService;
     }
 
+    // 로그인 화면
     @RequestMapping(value = "userLogin", method = RequestMethod.GET)
     public ModelAndView getUserLogin(ModelAndView modelAndView) {
         modelAndView.setViewName("member/userLogin");
         return modelAndView;
     }
 
+    // 로그인
     @RequestMapping(value = "userLogin", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String postUserLogin(HttpSession session,
@@ -52,6 +54,7 @@ public class MemberController {
         return responseJson.toString();
     }
 
+    // 로그아웃
     @RequestMapping(value = "userLogout", method = RequestMethod.GET)
     public ModelAndView getUserLogout(ModelAndView modelAndView,
                                       HttpSession session) {
@@ -66,6 +69,7 @@ public class MemberController {
         return modelAndView;
     }
 
+    // 회원가입 시 이메일 중복 여부
     @RequestMapping(value = "userEmail", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String postUserEmail(@RequestParam(value = "email") String email) {
@@ -75,7 +79,6 @@ public class MemberController {
         return responseJson.toString();
     }
 
-
     @RequestMapping(value = "userRegister", method = RequestMethod.GET)
     public ModelAndView getUserRegister(ModelAndView modelAndView) {
 
@@ -83,6 +86,8 @@ public class MemberController {
         return modelAndView;
     }
 
+    // 회원가입
+    // policyMarketing(마케팅 정보 활용 동의)은 선택사항
     @RequestMapping(value = "userRegister", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String postUserRegister(@RequestParam(value = "policyMarketing", required = true) boolean policyMarketing,
@@ -108,12 +113,14 @@ public class MemberController {
         return modelAndView;
     }
 
+    // 회원탈퇴
     @RequestMapping(value = "userSecession", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String postUserSecession(@SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user,
                                     @RequestParam(value = "password") String password) {
 
         JSONObject responseJson = new JSONObject();
+        // 비밀번호 일치 여부
         if (!CryptoUtils.hashSha512(password).equals(user.getPassword())) {
             responseJson.put(IResult.ATTRIBUTE_NAME, "warn");
             return responseJson.toString();

@@ -54,6 +54,7 @@ const indexPage = () => {
 let lastArticleId = -1;
 indexPage();
 
+// 검색
 const searchPage = () => {
 
     const xhr = new XMLHttpRequest();

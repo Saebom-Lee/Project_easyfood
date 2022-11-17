@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service(value = "com.easyfood.community.services.MemberService")
 public class MemberService {
 
-private final IMemberMapper memberMapper;
+    private final IMemberMapper memberMapper;
 
     public MemberService(IMemberMapper memberMapper) {
         this.memberMapper = memberMapper;
@@ -22,12 +22,14 @@ private final IMemberMapper memberMapper;
         if (user.getEmail() == null ||
                 user.getPassword() == null ||
                 user.getName() == null ||
-                user.getContact() == null ) {
+                user.getContact() == null) {
             return CommonResult.FAILURE;
         }
-        if (this.memberMapper.selectUserCountByName(user.getName()) > 0){
+        // 닉네임 중복 여부
+        if (this.memberMapper.selectUserCountByName(user.getName()) > 0) {
             return CommonResult.DUPLICATE;
         }
+        // 비밀번호 암호화
         user.setPassword(CryptoUtils.hashSha512(user.getPassword()));
         if (this.memberMapper.insertUser(user) == 0) {
             return CommonResult.FAILURE;
@@ -38,10 +40,12 @@ private final IMemberMapper memberMapper;
     @Transactional
     public IResult loginUser(UserEntity user) {
         if (user.getEmail() == null ||
-                user.getPassword() == null ) {
+                user.getPassword() == null) {
             return CommonResult.FAILURE;
         }
+        // 비밀번호 일치 여부
         user.setPassword(CryptoUtils.hashSha512(user.getPassword()));
+        // 기존 회원
         UserEntity existingUser = this.memberMapper.selectUserByEmailPassword(user);
         if (existingUser == null) {
             return CommonResult.FAILURE;
@@ -70,8 +74,9 @@ private final IMemberMapper memberMapper;
                 UserEntity.build().setEmail(email)
         );
     }
+
     @Transactional
-    public IResult checkEmail(String email){
+    public IResult checkEmail(String email) {
         return this.memberMapper.selectUserCountByEmail(email) > 0
                 ? CommonResult.DUPLICATE
                 : CommonResult.SUCCESS;

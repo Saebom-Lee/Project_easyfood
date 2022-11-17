@@ -19,6 +19,7 @@ const coverImagePreview = window.document.getElementById('coverImagePreview');
 coverImagePreview.addEventListener('click', () => {
     form['coverImage'].click();
 });
+
 form['coverImage'].addEventListener('input', () => {
     if ((form['coverImage'].files?.length ?? 0) === 0) {
         noCoverImage.classList.add('visible');

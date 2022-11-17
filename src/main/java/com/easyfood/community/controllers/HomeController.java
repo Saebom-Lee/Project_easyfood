@@ -10,7 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomeController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView getIndex(ModelAndView modelAndView) {
-//        modelAndView.setViewName("home/index");
         modelAndView.setViewName("redirect:/recipe/");
         return modelAndView;
     }

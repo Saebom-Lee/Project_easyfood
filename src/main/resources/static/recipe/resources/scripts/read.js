@@ -28,7 +28,7 @@ xhr.onreadystatechange = () => {
         if (xhr.status >= 200 && xhr.status < 300) {
             const responseJson = JSON.parse(xhr.responseText);
             const createdAtObj = new Date(responseJson['createdAt']);
-            window.document.title = `${responseJson['title']} :: 이지푸드`;
+            window.document.title = `EASYFOOD | ${responseJson['title']}`;
             coverImage.setAttribute('src', `../cover-image/${id}`);
             title.innerText = responseJson['title'];
             content.innerHTML = responseJson['content'];
@@ -249,29 +249,3 @@ const modifyComment = (commentId) => {
         xhr.send(formData);
     }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

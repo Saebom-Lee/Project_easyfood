@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>요리 연구소</title>
+    <title>EASYFOOD | 쉽게 만드는 요리</title>
     <th:block th:insert="~{fragments/head.html :: content}"></th:block>
     <link rel="stylesheet" th:href="@{/recipe/resources/stylesheets/index.css}">
     <script defer th:src="@{/recipe/resources/scripts/index.js}"></script>
@@ -17,12 +17,6 @@
         </label>
     </form>
     <div class="recipe-container" id="recipeContainer">
-<!--                    <a class="recipe" href="#">-->
-<!--                        <img alt="" class="cover-image"-->
-<!--                             src="https://static.wtable.co.kr/image/production/service/recipe/1802/9c556903-01f9-4850-bcf8-1f9c62a0d680.jpg?size=1050x590">-->
-<!--                        <span class="title">맛있는 파스타</span>-->
-<!--                        <span class="content">맛있는 파스타맛있는 파스타맛있는 파스타맛있는 파스타맛있는 파스타맛있는 파스타</span>-->
-<!--                    </a>-->
     </div>
         <div class="moreButton" id="more">더 불러오기</div>
         <a class="write" th:href="@{/recipe/write}">
