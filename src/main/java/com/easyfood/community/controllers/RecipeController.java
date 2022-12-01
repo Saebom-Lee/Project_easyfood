@@ -29,7 +29,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
-@Controller(value = "com.easyfood.community.controllers.RecipeController")
+@Controller
 @RequestMapping(value = "/recipe")
 public class RecipeController {
 
@@ -161,7 +161,8 @@ public class RecipeController {
         IResult result = this.recipeService.uploadImage(image);
         JSONObject responseJson = new JSONObject();
         if (result == CommonResult.SUCCESS) {
-            responseJson.put("url", String.format("http://localhost:8080/recipe/image/%d", image.getIndex()));
+            responseJson.put("url", String.format("http://34.64.252.172/recipe/image/%d", image.getIndex()));
+            // 배포 전에는 "http://localhost:8080/recipe/image/%d"
         } else {
             JSONObject errorJson = new JSONObject();
             errorJson.put("message", "이미지 업로드에 실패하였습니다. 잠시 후 다시 시도해 주세요.");

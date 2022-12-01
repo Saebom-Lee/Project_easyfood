@@ -8,7 +8,7 @@ import com.easyfood.community.utils.CryptoUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service(value = "com.easyfood.community.services.MemberService")
+@Service
 public class MemberService {
 
     private final IMemberMapper memberMapper;

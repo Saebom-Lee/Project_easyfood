@@ -21,7 +21,7 @@ coverImagePreview.addEventListener('click', () => {
 });
 
 form['coverImage'].addEventListener('input', () => {
-    if ((form['coverImage'].files?.length ?? 0) === 0) {
+    if ((form['coverImage'].files.length ?? 0) === 0) {
         noCoverImage.classList.add('visible');
         coverImagePreview.removeAttribute('src');
         return;

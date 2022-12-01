@@ -52,7 +52,7 @@
     <select id="selectArticlesForSearch"
             resultType="com.easyfood.community.dtos.recipe.ArticleSearchDto"><![CDATA[
         SELECT `article`.`index`      AS `index`,
-               `article`.user_email   AS `userEmail`,
+               `article`.`user_email`   AS `userEmail`,
                `article`.`created_at` AS `createdAt`,
                `article`.`title`      AS `title`,
             LEFT (`article`.`content`, 100) AS `content`,

@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-@Service(value = "com.easyfood.community.services.RecipeService")
+@Service
 public class RecipeService {
 
     private final IRecipeMapper recipeMapper;

@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 
-@Controller(value = "com.easyfood.community.controllers.MemberController")
+@Controller
 @RequestMapping(value = "/member")
 public class MemberController {
 
